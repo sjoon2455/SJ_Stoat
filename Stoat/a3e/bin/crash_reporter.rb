@@ -101,7 +101,7 @@ class CrashReporter
   def check_crash_details(lines)
     #puts "lines: #{lines}"
     lines.each_line do |l|
-        loc = l.index(":")
+        loc = l.index(":", 32)
         if loc != nil
           length = l.length
           core_line = l[(loc+1)..(length-1)].strip() # remove the logcat message head
@@ -215,7 +215,10 @@ class CrashReporter
     #puts "D: record event: #{event_cmd}, and its text: #{action_view_text}"
     cmd = event_cmd.chomp() + "@" + action_view_text.chomp() # remove "\n" 
     # quote #{event_cmd} with "" since itself may contain '' !!!
-    UTIL.execute_shell_cmd("echo \"#{cmd}\" >> #{@bug_event_trace_file}")
+    # UTIL.execute_shell_cmd("echo \"#{cmd}\" >> #{@bug_event_trace_file}")
+    open("#{@bug_event_trace_file}", 'a') { |f|
+        f.puts "#{cmd}"
+    }
     #puts "*************************************************************"
   end
   

@@ -455,6 +455,9 @@ class AgentManager
       	  end
       	  
           @mcmc_iteration += 1
+          if File.exist?(@mcmc_sampling_log_dir+ "/" + "test_suite#{@mcmc_iteration}.txt") then
+              File.delete(@mcmc_sampling_log_dir+ "/" + "test_suite#{@mcmc_iteration}.txt")
+              end
           
           while !(clientSession.closed?) &&
               (serverMessage = clientSession.gets)
@@ -468,6 +471,13 @@ class AgentManager
                       f.puts test_sequence
                       f.puts "**"
                   end
+                  
+                  File.open(@mcmc_sampling_log_dir+ "/" + "test_suite#{@mcmc_iteration}.txt", 'a') do |f|
+                      f.puts test_sequence
+                      f.puts "**"
+                  end
+                  
+                  
                   
                   puts "#{@manager_name} I: get a test sequence: #{test_sequence}"
                   test_suite.push(test_sequence)

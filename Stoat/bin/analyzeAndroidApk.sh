@@ -173,6 +173,21 @@ ${MCMC_CMD}\
 
 }
 
+function MCMC_sample_copy(){
+COPIED_DIR = "${APP_SOURCE_DIR}-copied"
+MCMC_CMD = "MCMCSampler --test \
+$COPIED_DIR"
+
+cp -r ${APP_SOURCE_DIR} ${COPIED_DIR}
+cp ${COPIED_DIR}/CONF-COPIED.txt ${COPIED_DIR}/CONF.txt
+
+java \
+-Xss50m \
+-Xmx1500m \
+-classpath ${JAVA_CLASSPATH} \
+${MCMC_CMD}\
+
+}
 
 
 function MCMC_sample_apk(){
@@ -231,6 +246,10 @@ elif [ "${OPTION}" = "fsm_apk" ]; then
 build_fsm_apk
 elif [ "${OPTION}" = "mcmc" ]; then
 MCMC_sample
+
+elif [ "${OPTION}" = "mcmc_copy" ]; then
+MCMC_sample_copy
+
 elif [ "${OPTION}" = "mcmc_apk" ]; then
 MCMC_sample_apk
 elif [ "${OPTION}" = "mcmc-compare" ]; then
