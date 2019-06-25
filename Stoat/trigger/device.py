@@ -38,7 +38,7 @@ class Device:
 			if sys_event.get_category() is not None:
 				args.extend(['-c', sys_event.get_category()])
 			if sys_event.get_package_name() is not None:
-				args.extend(['-n', sys_event.get_package_name()])
+                args.extend([sys_event.get_package_name().strip()])
 			return args
 		elif isinstance(sys_event, LauncherEvent):
 			args = ['adb', '-s', self.serial, 'shell', 'am', 'start']

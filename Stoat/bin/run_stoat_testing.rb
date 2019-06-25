@@ -58,7 +58,9 @@ def start_avd(avd_name="testAVD_1", avd_port="5554", force_restart=false)
 	# start the emulator, http://stackoverflow.com/questions/2504445/spawn-a-background-process-in-ruby
 	job1 = fork do 
 		# -swipe-data: clean up the emulator
-  		exec "emulator -port #{avd_port} -avd #{avd_name} -wipe-data &"
+        # exec "emulator -port #{avd_port} -avd #{avd_name} -wipe-data &"
+        ## 이 부분이 맞는지 모르겠넹
+        exec "~/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-i386 -netdelay none -netspeed full -avd #{avd_name} -port #{avd_port} -wipe-data &"
 	end
 	Process.detach(job1)
 
@@ -418,7 +420,10 @@ $model_construction_time="1.2h"
 $mcmc_sampling_time="2h"
 
 # only construct the app model by gui exploration without mcmc sampling
-$only_gui_exploration=false 
+$only_gui_exploration=false
+
+# only mcmc, if fsm is alreadly built
+$only_mcmc_sampling = false
 
 # the maximum number of events for model construction
 $max_event_number=3000
@@ -510,6 +515,9 @@ OptionParser.new do |opts|
   opts.on("--only_gui_exploration", "only construct the app model by gui exploration") do
 	$only_gui_exploration = true
   end
+  opts.on("--only_mcmc_sampling", "only fuzz the app with mcmc if fsm is already built") do
+      $only_mcmc_sampling = true
+  end
   opts.on("--force_create", "force to create a fresh/clean Android Virtual Device") do 
 	force_to_create = true	
   end
@@ -562,7 +570,9 @@ if (not app_dir.eql?("")) && File.exist?(app_dir) then  # for testing one app at
 		install_app(avd_serial, app_dir, apk_path)
 	end
 
-	if $only_gui_exploration then
+	if $only_mcmc_sampling then
+               mcmc_sampling_fuzzing(app_dir, apk_path, avd_serial, stoat_port)
+    elsif $only_gui_exploration then
 		# only construct the gui model for the app
 		construct_fsm(app_dir, apk_path, avd_serial, stoat_port)
 		uninstall_app(avd_serial, app_dir)
@@ -604,7 +614,7 @@ elsif (not apps_list.eql?("")) && File.exist?(apps_list) then # for testing mult
 
 		prepare_avd(avd_serial)
 		if auto_install then
-			install_app(avd_serial, app_dir, app_dir_from_file)
+			install_app(avd_serial, app_dir_from_file, app_dir_from_file)
 		end
 
 		# get the app path (absolute path)
@@ -616,9 +626,12 @@ elsif (not apps_list.eql?("")) && File.exist?(apps_list) then # for testing mult
 			# only construct gui models for apps
 			construct_fsm(app_dir_from_file, apk_path_from_file, avd_serial, stoat_port)
 			uninstall_app(avd_serial, app_dir_from_file)
+            stoat_port = (stoat_port.to_i + 1).to_s
 		else
 			construct_fsm(app_dir_from_file, apk_path_from_file, avd_serial, stoat_port)
-			mcmc_sampling_fuzzing(app_dir_from_file, apk_path_from_file, avd_serial, stoat_port)
+			stoat_port = (stoat_port.to_i + 1).to_s
+            mcmc_sampling_fuzzing(app_dir_from_file, apk_path_from_file, avd_serial, stoat_port)
+            stoat_port = (stoat_port.to_i + 1).to_s
 		end
 	
 		execute_shell_cmd("echo #{app_dir_from_file} > #{avd_name}.done.txt")

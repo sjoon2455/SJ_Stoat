@@ -174,10 +174,10 @@ ${MCMC_CMD}\
 }
 
 function MCMC_sample_copy(){
+# creates copied directory
 COPIED_DIR = "${APP_SOURCE_DIR}-copied"
 MCMC_CMD = "MCMCSampler --test \
 $COPIED_DIR"
-
 cp -r ${APP_SOURCE_DIR} ${COPIED_DIR}
 cp ${COPIED_DIR}/CONF-COPIED.txt ${COPIED_DIR}/CONF.txt
 
