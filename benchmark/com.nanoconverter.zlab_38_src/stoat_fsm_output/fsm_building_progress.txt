@@ -1,0 +1,3 @@
+#executed_events #covered_lines #line_coverage_percentage(%) #total_exec_time (min)
+100 176.3 14.703919933277732 2.1922410500000002
+200 176.3 14.703919933277732 4.3944921500000005

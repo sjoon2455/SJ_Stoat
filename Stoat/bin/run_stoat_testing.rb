@@ -57,10 +57,9 @@ def start_avd(avd_name="testAVD_1", avd_port="5554", force_restart=false)
 
 	# start the emulator, http://stackoverflow.com/questions/2504445/spawn-a-background-process-in-ruby
 	job1 = fork do 
-		# -swipe-data: clean up the emulator
+		# -wipe-data: clean up the emulator
         # exec "emulator -port #{avd_port} -avd #{avd_name} -wipe-data &"
-        ## 이 부분이 맞는지 모르겠넹
-        exec "~/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-i386 -netdelay none -netspeed full -avd #{avd_name} -port #{avd_port} -wipe-data &"
+        exec "LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/Users/sj/Library/Android/sdk/emulator/lib64/:/Users/sj/Library/Android/sdk/emulator/lib64/qt/lib /Users/sj/Library/Android/sdk/emulator/qemu/darwin-x86_64/qemu-system-i386 -netdelay none -netspeed full -avd #{avd_name} -port #{avd_port} -gpu host -wipe-data &"
 	end
 	Process.detach(job1)
 
@@ -416,8 +415,8 @@ stoat_port="2000"
 # the default configuration for Stoat
 force_to_create=false 
 force_to_restart=false
-$model_construction_time="1.2h"
-$mcmc_sampling_time="2h"
+$model_construction_time="0.1h"
+$mcmc_sampling_time="0.2h"
 
 # only construct the app model by gui exploration without mcmc sampling
 $only_gui_exploration=false

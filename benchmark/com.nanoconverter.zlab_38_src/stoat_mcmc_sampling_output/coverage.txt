@@ -1,0 +1,21 @@
+[EMMA v2.0.5312 report, generated Wed Jun 26 12:49:37 PWT 2019]
+-------------------------------------------------------------------------------
+OVERALL COVERAGE SUMMARY:
+
+[class, %]	[method, %]	[block, %]	[line, %]	[name]
+30%  (13/43)!	28%  (39/139)!	17%  (1533/8767)!	16%  (207.3/1294)!	all classes
+
+OVERALL STATS SUMMARY:
+
+total packages:	2
+total classes:	43
+total methods:	139
+total executable files:	7
+total executable lines:	1294
+
+COVERAGE BREAKDOWN BY PACKAGE:
+
+[class, %]	[method, %]	[block, %]	[line, %]	[name]
+28%  (11/39)!	26%  (30/117)!	17%  (1405/8388)!	15%  (176.6/1199)!	com.nanoconverter.zlab
+50%  (2/4)!	41%  (9/22)!	34%  (128/379)!	32%  (30.7/95)!	com.nanoconverter.zlab.EmmaInstrument
+-------------------------------------------------------------------------------

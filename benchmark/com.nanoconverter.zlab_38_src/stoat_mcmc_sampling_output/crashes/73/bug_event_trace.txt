@@ -1,0 +1,6 @@
+click(resource-id='com.nanoconverter.zlab:id/toEUR')@"EUR"
+edit(resource-id='com.nanoconverter.zlab:id/ValueResult')@"2.50"
+edit(resource-id='com.nanoconverter.zlab:id/ValueResult')@"342.80"
+click(resource-id='com.nanoconverter.zlab:id/toUSD')@"USD"
+edit(resource-id='com.nanoconverter.zlab:id/ValueResult')@"15.08"
+menu@

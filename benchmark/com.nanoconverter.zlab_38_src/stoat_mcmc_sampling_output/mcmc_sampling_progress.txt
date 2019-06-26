@@ -1,0 +1,12 @@
+MCMC: iteration: 1, test suite size: 8, the line coverage: 207.3, the elapsed time: 1.8396088333333334
+MCMC: iteration: 1, total test suite size: 8, the total line coverage in history : 207.3
+----------------------------
+
+MCMC: iteration: 2, test suite size: 30, the line coverage: 207.3, the elapsed time: 6.6633108666666665
+MCMC: iteration: 2, total test suite size: 38, the total line coverage in history : 207.3
+----------------------------
+
+MCMC: iteration: 3, test suite size: 15, the line coverage: 194.6, the elapsed time: 8.893020416666667
+MCMC: iteration: 3, total test suite size: 53, the total line coverage in history : 207.3
+----------------------------
+
